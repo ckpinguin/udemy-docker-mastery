@@ -1,0 +1,22 @@
+version: 3
+services:
+  db:
+    image: postgres:9.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    secrets: 
+      - psql_user
+      - psql_password
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+volumes:
+  db-data:
+
+secrets:
+  psql_user:
+    file: ./psql_user.txt
+  psql_password:
+    file: ./psql_password.txt
